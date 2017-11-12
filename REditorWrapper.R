@@ -13,7 +13,7 @@ data<-dataset %>%
   summarise(
     Sales = sum(Sales)
   ) %>%
-  mutate(month_num = match(Month,month.name))%>%
+  mutate(month_num = match(Month,month.name))%>% #convert month name to numerical
   arrange(Year,month_num)
 #print(data)
 test.length <- 0
@@ -21,6 +21,7 @@ seasonality <- 12
 observation.freq <- "month"
 timeformat <- "%m/%d/%Y"
 
+#to get forecasting year/month given horizon and current year/month
 get.pred.period<-function(year,month,horizon){
     year<-as.numeric(year)
    month<-as.numeric(month)
@@ -59,7 +60,7 @@ return(data.frame(Year,Month,stringsAsFactors=FALSE))
 
 
   arima.single.id <- function(data){
-  method.name <- "STL_ARIMA"
+  method.name <- "STL_ARIMA" 
   pred_horizon<-15
 
   #print(colnames(data))
